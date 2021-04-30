@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const flash = require("express-flash");
 const MongoDbStore = require("connect-mongo")(session);
+const passport = require("passport");
 
 // Port
 const PORT = process.env.PORT || 3000;
@@ -47,11 +48,20 @@ app.use(
   })
 );
 
+// Passport Config
+const passportInit = require("./app/config/passport");
+passportInit(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Flash Middleware
 app.use(flash());
 
 // Assets / Serve Static Files
 app.use(express.static("public"));
+
+// Middleware
+app.use(express.urlencoded({ extended: false }));
 
 // Json Middleware
 app.use(express.json());
@@ -59,7 +69,7 @@ app.use(express.json());
 // Global Middleware
 app.use((req, res, next) => {
   res.locals.session = req.session;
-  // res.locals.user = req.user;
+  res.locals.user = req.user;
   next();
 });
 

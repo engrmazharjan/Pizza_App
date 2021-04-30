@@ -10,7 +10,10 @@
       action="/register"
       method="POST"
     >
-      <input type="hidden" name="remember" value="true" />
+      <% if(messages.error) { %>
+
+      <span class="text-red-500 text-small"><%= messages.error %></span>
+      <% } %>
       <div class="rounded-md shadow-sm -space-y-px">
         <!-- Name -->
         <div class="mb-4">
@@ -23,6 +26,7 @@
             id="name"
             type="text"
             placeholder="Enter Your Name"
+            value="<%= messages.name %>"
           />
         </div>
         <!-- /Name -->
@@ -38,6 +42,7 @@
             id="email"
             type="email"
             placeholder="Enter Your Email"
+            value="<%= messages.email %> "
           />
         </div>
         <!-- /Email -->

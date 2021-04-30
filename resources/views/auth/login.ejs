@@ -10,7 +10,9 @@
       action="/login"
       method="POST"
     >
-      <input type="hidden" name="remember" value="true" />
+      <% if(messages.error) { %>
+      <span class="text-red-500 text-small"><%= messages.error %></span>
+      <% } %>
       <div class="rounded-md shadow-sm -space-y-px">
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
