@@ -10,6 +10,7 @@ const session = require("express-session");
 const flash = require("express-flash");
 const MongoDbStore = require("connect-mongo")(session);
 const passport = require("passport");
+const Emitter = require("events");
 
 // Port
 const PORT = process.env.PORT || 3000;
@@ -36,6 +37,10 @@ let mongoStore = new MongoDbStore({
   mongooseConnection: connection,
   collection: "sessions",
 });
+
+// Event Emitter
+const eventEmitter = new Emitter();
+app.set("eventEmitter", eventEmitter);
 
 // Session Config
 app.use(
@@ -82,6 +87,25 @@ app.set("view engine", "ejs");
 require("./routes/web")(app);
 
 // Listening to Server
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server Started on http://localhost:${PORT}`);
+});
+
+// Socket
+const io = require("socket.io")(server);
+io.on("connection", (socket) => {
+  // Join
+  // console.log(socket.id); // Socket Id
+  socket.on("join", (roomName) => {
+    // console.log(roomName);
+    socket.join(roomName);
+  });
+});
+
+eventEmitter.on("orderUpdated", (data) => {
+  io.to(`order_${data.id}`).emit("orderUpdated", data);
+});
+
+eventEmitter.on("orderPlaced", (data) => {
+  io.to("adminRoom").emit("orderPlaced", data);
 });
