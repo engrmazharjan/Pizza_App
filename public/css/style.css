@@ -343,7 +343,6 @@ section.login a:hover {
   color: #b23301;
 }
 
-.noty_theme_mint {
-  border-radius: 50px !important;
-  padding-left: 8px !important;
+a.idLink {
+  color: #fe5f1e;
 }
