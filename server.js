@@ -16,8 +16,7 @@ const Emitter = require("events");
 const PORT = process.env.PORT || 3000;
 
 // Database Connection
-const url = "mongodb://localhost/pizza";
-mongoose.connect(url, {
+mongoose.connect(process.env.MONGO_CONNECTION_URL, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
@@ -85,6 +84,11 @@ app.set("view engine", "ejs");
 
 // Import Routes / Set Routes / Require Routes
 require("./routes/web")(app);
+
+// Error / 404 Page
+app.use((req, res) => {
+  res.status(404).render("errors/404");
+});
 
 // Listening to Server
 const server = app.listen(PORT, () => {

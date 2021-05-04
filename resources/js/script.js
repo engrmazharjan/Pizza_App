@@ -90,9 +90,6 @@ updateStatus(order);
 // Socket
 let socket = io();
 
-// Call initAdmin() function
-initAdmin(socket);
-
 // Join
 if (order) {
   socket.emit("join", `order_${order._id}`);
@@ -102,6 +99,8 @@ if (order) {
 let adminAreaPath = window.location.pathname;
 // console.log(adminAreaPath);
 if (adminAreaPath.includes("admin")) {
+  // Call initAdmin() function
+  initAdmin(socket);
   socket.emit("join", "adminRoom");
 }
 

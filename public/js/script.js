@@ -2003,9 +2003,7 @@ function updateStatus(order) {
 
 updateStatus(order); // Socket
 
-var socket = io(); // Call initAdmin() function
-
-(0,_admin__WEBPACK_IMPORTED_MODULE_3__.initAdmin)(socket); // Join
+var socket = io(); // Join
 
 if (order) {
   socket.emit("join", "order_".concat(order._id));
@@ -2015,6 +2013,8 @@ if (order) {
 var adminAreaPath = window.location.pathname; // console.log(adminAreaPath);
 
 if (adminAreaPath.includes("admin")) {
+  // Call initAdmin() function
+  (0,_admin__WEBPACK_IMPORTED_MODULE_3__.initAdmin)(socket);
   socket.emit("join", "adminRoom");
 }
 
