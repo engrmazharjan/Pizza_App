@@ -1,4 +1,6 @@
 {
     "/public/js/script.js": "/public/js/script.js",
-    "/public/css/style.css": "/public/css/style.css"
+    "/public/css/style.css": "/public/css/style.css",
+    "/public/css/style.min.css": "/public/css/style.min.css",
+    "/public/js/script.min.js": "/public/js/script.min.js"
 }
