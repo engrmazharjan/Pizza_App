@@ -8,3 +8,7 @@ mix
 
 mix.minify("public/css/style.css");
 mix.minify("public/js/script.js");
+
+mix.babelConfig({
+  plugins: ["@babel/plugin-proposal-class-properties"],
+});

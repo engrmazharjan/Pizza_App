@@ -1,7 +1,9 @@
 import axios from "axios";
 import moment from "moment";
+// import { DocumentQuery } from "mongoose";
 import Noty from "noty";
 import { initAdmin } from "./admin";
+import { initStripe } from "./stripe";
 
 let addToCart = document.querySelectorAll(".add-to-cart");
 let cartCounter = document.querySelector("#cartCounter");
@@ -86,6 +88,9 @@ function updateStatus(order) {
   });
 }
 updateStatus(order);
+
+// Payment
+initStripe();
 
 // Socket
 let socket = io();
